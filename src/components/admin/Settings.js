@@ -1,4 +1,5 @@
-
+import React, { useState } from 'react';
+import { Menu, PieChart, Package, Users, ShoppingCart, Settings, LogOut, Plus, Edit, Trash, X } from 'lucide-react';
 
 // Settings Component
 export function Settings() {
