@@ -1,108 +1,81 @@
-// Three.js scene setup
-let scene, camera, renderer;
+// Save as: main.js
 const products = [
-    { name: 'වැනිලා ක්‍රීම්', price: 'රු.350', description: 'සාම්ප්‍රදායික වැනිලා රසය' },
-    { name: 'චොකලට් ක්‍රීම්', price: 'රු.400', description: 'මිහිරි චොකලට් රසය' },
-    { name: 'ස්ට්‍රෝබෙරි ක්‍රීම්', price: 'රු.380', description: 'නැවුම් ස්ට්‍රෝබෙරි රසය' },
-    // Add more products as needed
+    {
+        name: "පෙති සුදු කිරීමේ ක්‍රීම්",
+        description: "සතියකින් සුදු පැහැති චර්මයක්",
+        price: "රු. 2500",
+        features: ["ස්වභාවික", "ආයුර්වේද", "සුවඳ"]
+    },
+    {
+        name: "රාත්‍රී ක්‍රීම්",
+        description: "රාත්‍රියේ චර්මය පෝෂණය කිරීම",
+        price: "රු. 3000",
+        features: ["පෝෂණය", "ප්‍රතිඔක්සිකාරක", "යෞවනය"]
+    },
+    {
+        name: "දිවා ක්‍රීම්",
+        description: "දිවා කාලයේ චර්මය ආරක්ෂා කිරීම",
+        price: "රු. 2800",
+        features: ["SPF30", "තෙත", "ආරක්ෂණය"]
+    }
 ];
 
-function init() {
-    // Scene setup
-    scene = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    renderer = new THREE.WebGLRenderer({
-        canvas: document.querySelector('#hero-canvas'),
-        alpha: true,
-        antialias: true
-    });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-
-    // Add ambient light
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-    scene.add(ambientLight);
-
-    // Add directional light
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-    directionalLight.position.set(0, 10, 10);
-    scene.add(directionalLight);
-
-    // Create floating cream bowl model
-    const geometry = new THREE.TorusGeometry(3, 1, 16, 100);
-    const material = new THREE.MeshPhongMaterial({
-        color: 0xea580c,
-        transparent: true,
-        opacity: 0.8,
-        shininess: 100
-    });
-    const cream = new THREE.Mesh(geometry, material);
-    scene.add(cream);
-
-    camera.position.z = 10;
-
-    // Animation
-    function animate() {
-        requestAnimationFrame(animate);
-        cream.rotation.x += 0.01;
-        cream.rotation.y += 0.01;
-        renderer.render(scene, camera);
-    }
-    animate();
-
-    // Handle window resize
-    window.addEventListener('resize', onWindowResize, false);
-}
-
-function onWindowResize() {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-}
-
-// Scroll animations
-function handleScrollAnimations() {
-    const elements = document.querySelectorAll('.scroll-reveal');
-    elements.forEach(el => {
-        const rect = el.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-        if (rect.top <= windowHeight * 0.85) {
-            el.classList.add('active');
-        }
-    });
-}
-
-// Product cards generation
-function generateProductCards() {
+function createProductCards() {
     const productContainer = document.querySelector('#products .grid');
+    
     products.forEach(product => {
         const card = document.createElement('div');
-        card.className = 'product-card bg-white rounded-lg shadow-lg p-6 text-center';
+        card.className = 'product-card bg-white rounded-xl shadow-lg p-6 transform transition-all duration-300 hover:shadow-2xl';
+        
         card.innerHTML = `
-            <h3 class="text-xl font-bold mb-4">${product.name}</h3>
+            <div class="h-48 bg-pink-100 rounded-lg mb-4 flex items-center justify-center">
+                <svg class="w-24 h-24 text-pink-500" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-2">${product.name}</h3>
             <p class="text-gray-600 mb-4">${product.description}</p>
-            <p class="text-2xl font-bold text-orange-600 mb-6">${product.price}</p>
-            <button class="bg-orange-600 text-white px-6 py-2 rounded-full hover:bg-orange-700 transition-colors">
+            <div class="flex flex-wrap gap-2 mb-4">
+                ${product.features.map(feature => 
+                    `<span class="bg-pink-100 text-pink-800 text-sm px-3 py-1 rounded-full">${feature}</span>`
+                ).join('')}
+            </div>
+            <p class="text-2xl font-bold text-pink-600">${product.price}</p>
+            <button class="mt-4 w-full bg-pink-600 text-white py-2 rounded-lg hover:bg-pink-700 transition">
                 මිලදී ගන්න
             </button>
         `;
+        
         productContainer.appendChild(card);
     });
 }
 
-// Initialize everything
-document.addEventListener('DOMContentLoaded', () => {
-    init();
-    generateProductCards();
-    window.addEventListener('scroll', handleScrollAnimations);
-    handleScrollAnimations(); // Initial check
-});
+// Scroll animations
+const observerOptions = {
+    threshold: 0.1
+};
 
-// Smooth scroll for navigation
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+        }
+    });
+}, observerOptions);
+
+document.addEventListener('DOMContentLoaded', () => {
+    createProductCards();
+    
+    // Initialize scroll animations
+    document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+    
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
         });
     });
 });
