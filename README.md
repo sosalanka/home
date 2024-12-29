@@ -73,7 +73,7 @@ sosa-lanka/
 
 1. Repository එක clone කරගන්න:
 ```bash
-git clone https://github.com/your-username/sosa-lanka.git
+[git clone https://github.com/your-username/sosa-lanka.git](https://github.com/sosalanka/home.git)
 ```
 
 2. Dependencies ස්ථාපනය කරන්න:
@@ -125,9 +125,9 @@ MIT බලපත්‍රය යටතේ බලපත්‍ර ලබා දී
 
 ## 📞 සම්බන්ධ වන්න
 
-- 📧 Email: info@sosalanla.lk
-- 🌐 Website: www.sosalanka.lk
-- 📱 Phone: +94 XX XXX XXXX
+- 📧 Email: sosalanla@gmail.com
+- 🌐 Website: https://sosalanka.github.io/home/
+- 📱 Phone: +94 77 628 4964
 
 ---
 ⭐️ Developed by Sosa Lanka Team | © 2024 All rights reserved.
