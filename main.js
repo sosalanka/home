@@ -1,81 +1,204 @@
 // Save as: main.js
+// Products Data
 const products = [
     {
-        name: "පෙති සුදු කිරීමේ ක්‍රීම්",
-        description: "සතියකින් සුදු පැහැති චර්මයක්",
-        price: "රු. 2500",
-        features: ["ස්වභාවික", "ආයුර්වේද", "සුවඳ"]
+        id: 1,
+        name: "ප්‍රීමියම් පෙති සුදු කිරීමේ ක්‍රීම්",
+        description: "විශේෂ ආයුර්වේද සූත්‍රයෙන් නිපදවන ලද මෙම ක්‍රීමය මගින් සතියක් ඇතුළත ඔබේ සමේ ස්වභාවික දීප්තිය ලබාදෙයි.",
+        price: "රු. 4,500",
+        ingredients: ["කහ", "සන්දල්", "කොහොඹ"],
+        benefits: ["සම සුදුවීම", "තරුණ පෙනුම", "ස්වභාවික දීප්තිය"],
+        size: "50ml"
     },
     {
-        name: "රාත්‍රී ක්‍රීම්",
-        description: "රාත්‍රියේ චර්මය පෝෂණය කිරීම",
-        price: "රු. 3000",
-        features: ["පෝෂණය", "ප්‍රතිඔක්සිකාරක", "යෞවනය"]
+        id: 2,
+        name: "ඇන්ටි-ඒජිං නైට් ක්‍රීම්",
+        description: "රාත්‍රී කාලයේදී ඔබේ සම පෝෂණය කරමින් වයස්ගත වීමේ ලකුණු අවම කරයි.",
+        price: "රු. 5,200",
+        ingredients: ["ආලෝ වෙරා", "විටමින් E", "කොලජන්"],
+        benefits: ["රැලි අවම කිරීම", "සම තද කිරීම", "පෝෂණය"],
+        size: "30ml"
     },
     {
-        name: "දිවා ක්‍රීම්",
-        description: "දිවා කාලයේ චර්මය ආරක්ෂා කිරීම",
-        price: "රු. 2800",
-        features: ["SPF30", "තෙත", "ආරක්ෂණය"]
+        id: 3,
+        name: "හයිඩ්රේටිං් ෆේස් සීරම්",
+        description: "දිවා කාලයේ සම ආරක්ෂා කරමින් අවශ්‍ය තෙතමනය රැකදෙන සීරම්.",
+        price: "රු. 3,900",
+        ingredients: ["හයලුරොනික් ඇසිඩ්", "විටමින් C", "නීම්"],
+        benefits: ["තෙතමනය", "ප්‍රතිඔක්සිකාරක", "ආරක්ෂාව"],
+        size: "30ml"
     }
 ];
 
-function createProductCards() {
-    const productContainer = document.querySelector('#products .grid');
+// Ingredients Data
+const ingredients = [
+    {
+        name: "කහ",
+        description: "ස්වභාවික ප්‍රතිජීවක ගුණ",
+        icon: `<svg class="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 8v8M8 12h8"/>
+        </svg>`
+    },
+    {
+        name: "සන්දල්",
+        description: "සම සුදු කිරීමේ ගුණ",
+        icon: `<svg class="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>`
+    },
+    {
+        name: "ආලෝ වෙරා",
+        description: "සම පෝෂණය",
+        icon: `<svg class="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <path d="M12 8v8M8 12h8"/>
+        </svg>`
+    },
+    {
+        name: "නීම්",
+        description: "ස්වභාවික ආරක්ෂාව",
+        icon: `<svg class="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>`
+    }
+];
+
+// Initialize website
+document.addEventListener('DOMContentLoaded', () => {
+    // Remove loader
+    setTimeout(() => {
+        document.getElementById('loader').classList.add('opacity-0');
+        setTimeout(() => {
+            document.getElementById('loader').remove();
+        }, 500);
+    }, 1500);
+
+    // Initialize components
+    initializeNavigation();
+    createProductCards();
+    createIngredientCards();
+    initializeAnimations();
+    initializeContactForm();
+});
+
+// Navigation handling
+function initializeNavigation() {
+    const nav = document.getElementById('mainNav');
     
-    products.forEach(product => {
-        const card = document.createElement('div');
-        card.className = 'product-card bg-white rounded-xl shadow-lg p-6 transform transition-all duration-300 hover:shadow-2xl';
-        
-        card.innerHTML = `
-            <div class="h-48 bg-pink-100 rounded-lg mb-4 flex items-center justify-center">
-                <svg class="w-24 h-24 text-pink-500" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
-                </svg>
-            </div>
-            <h3 class="text-xl font-bold mb-2">${product.name}</h3>
-            <p class="text-gray-600 mb-4">${product.description}</p>
-            <div class="flex flex-wrap gap-2 mb-4">
-                ${product.features.map(feature => 
-                    `<span class="bg-pink-100 text-pink-800 text-sm px-3 py-1 rounded-full">${feature}</span>`
-                ).join('')}
-            </div>
-            <p class="text-2xl font-bold text-pink-600">${product.price}</p>
-            <button class="mt-4 w-full bg-pink-600 text-white py-2 rounded-lg hover:bg-pink-700 transition">
-                මිලදී ගන්න
-            </button>
-        `;
-        
-        productContainer.appendChild(card);
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 100) {
+            nav.classList.add('bg-white/90', 'backdrop-blur-md', 'shadow-md');
+        } else {
+            nav.classList.remove('bg-white/90', 'backdrop-blur-md', 'shadow-md');
+        }
     });
 }
 
-// Scroll animations
-const observerOptions = {
-    threshold: 0.1
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('revealed');
-        }
+// Create product cards
+function createProductCards() {
+    const productsGrid = document.getElementById('productsGrid');
+    
+    products.forEach(product => {
+        const card = document.createElement('div');
+        card.className = 'product-card fade-up';
+        
+        card.innerHTML = `
+            <div class="h-48 bg-gold/10 rounded-xl mb-6 flex items-center justify-center">
+                <div class="text-gold">
+                    <svg class="w-16 h-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 8v8M8 12h8"/>
+                    </svg>
+                </div>
+            </div>
+            <h3 class="text-xl font-medium mb-2">${product.name}</h3>
+            <p class="text-gray-600 text-sm mb-4">${product.description}</p>
+            <div class="mb-4">
+                <h4 class="text-sm font-medium mb-2">ප්‍රතිලාභ:</h4>
+                <div class="flex flex-wrap gap-2">
+                    ${product.benefits.map(benefit => 
+                        `<span class="bg-gold/10 text-gold text-xs px-3 py-1 rounded-full">${benefit}</span>`
+                    ).join('')}
+                </div>
+            </div>
+            <div class="flex items-center justify-between mt-6">
+                <span class="text-xl font-medium text-gold">${product.price}</span>
+                <button class="btn-secondary">මිලදී ගන්න</button>
+            </div>
+        `;
+        
+        productsGrid.appendChild(card);
     });
-}, observerOptions);
+}
 
-document.addEventListener('DOMContentLoaded', () => {
-    createProductCards();
+// Create ingredient cards
+function createIngredientCards() {
+    const ingredientsGrid = document.getElementById('ingredientsGrid');
     
-    // Initialize scroll animations
-    document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+    ingredients.forEach(ingredient => {
+        const card = document.createElement('div');
+        card.className = 'text-center fade-up';
+        
+        card.innerHTML = `
+            <div class="bg-gold/10 rounded-full w-24 h-24 mx-auto mb-4 flex items-center justify-center text-gold">
+                ${ingredient.icon}
+            </div>
+            <h3 class="font-medium mb-2">${ingredient.name}</h3>
+            <p class="text-sm text-gray-600">${ingredient.description}</p>
+        `;
+        
+        ingredientsGrid.appendChild(card);
+    });
+}
+
+// Initialize animations
+function initializeAnimations() {
+    // Initialize GSAP animations
+    gsap.registerPlugin(ScrollTrigger);
     
-    // Smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
-            });
+    // Animate sections on scroll
+    gsap.utils.toArray('.fade-up').forEach(element => {
+        gsap.from(element, {
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            scrollTrigger: {
+                trigger: element,
+                start: 'top 80%',
+                toggleActions: 'play none none reverse'
+            }
         });
     });
-});
+}
+
+// Contact form handling
+function initializeContactForm() {
+    const form = document.getElementById('contactForm');
+    if (!form) return;
+    
+    form.innerHTML = `
+        <div class="space-y-4">
+            <div>
+                <label class="block text-gray-300 mb-2">නම</label>
+                <input type="text" class="w-full bg-white/10 rounded-lg px-4 py-3 text-white" required>
+            </div>
+            <div>
+                <label class="block text-gray-300 mb-2">විද්‍යුත් තැපෑල</label>
+                <input type="email" class="w-full bg-white/10 rounded-lg px-4 py-3 text-white" required>
+            </div>
+            <div>
+                <label class="block text-gray-300 mb-2">පණිවිඩය</label>
+                <textarea class="w-full bg-white/10 rounded-lg px-4 py-3 text-white h-32" required></textarea>
+            </div>
+            <button type="submit" class="btn-primary-large w-full">
+                යවන්න
+            </button>
+        </div>
+    `;
+    
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        // Add form submission logic here
+    });
+}
