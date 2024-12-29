@@ -73,7 +73,7 @@ sosa-lanka/
 
 1. Repository එක clone කරගන්න:
 ```bash
-[git clone https://github.com/your-username/sosa-lanka.git](https://github.com/sosalanka/home.git)
+https://github.com/sosalanka/home.git
 ```
 
 2. Dependencies ස්ථාපනය කරන්න:
