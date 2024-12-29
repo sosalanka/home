@@ -4,62 +4,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sosa Lanka - පුරා පෙනුමක් සඳහා</title>
+    <title>Sosa Lanka - Premium Skincare</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-gradient-to-r from-pink-50 to-purple-50">
-    <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md">
+<body class="font-sans antialiased">
+    <!-- Loader -->
+    <div id="loader" class="fixed inset-0 z-50 flex items-center justify-center bg-white">
+        <div class="loader-content">
+            <svg class="animate-spin h-16 w-16 text-gold" viewBox="0 0 24 24">
+                <!-- Elegant loading animation -->
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-40 transition-all duration-300" id="mainNav">
         <div class="container mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
-                <div class="text-3xl font-bold text-pink-600">Sosa Lanka</div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#home" class="text-gray-700 hover:text-pink-600 transition">මුල් පිටුව</a>
-                    <a href="#products" class="text-gray-700 hover:text-pink-600 transition">නිෂ්පාදන</a>
-                    <a href="#about" class="text-gray-700 hover:text-pink-600 transition">අප ගැන</a>
-                    <a href="#contact" class="text-gray-700 hover:text-pink-600 transition">සම්බන්ධ වන්න</a>
+                <div class="flex items-center space-x-8">
+                    <a href="#" class="text-2xl font-serif tracking-wide text-gold">SOSA LANKA</a>
+                    <div class="hidden md:flex space-x-8">
+                        <a href="#products" class="nav-link">නිෂ්පාදන</a>
+                        <a href="#story" class="nav-link">අපගේ කතාව</a>
+                        <a href="#ingredients" class="nav-link">අමුද්‍රව්‍ය</a>
+                        <a href="#contact" class="nav-link">සම්බන්ධ වන්න</a>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <button class="btn-primary">නිෂ්පාදන ගවේෂණය</button>
                 </div>
             </div>
         </div>
     </nav>
 
-    <main>
-        <section id="home" class="h-screen relative overflow-hidden">
-            <canvas id="heroCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
-            <div class="relative z-10 flex items-center justify-center h-full">
-                <div class="text-center">
-                    <h1 class="text-6xl font-bold text-white mb-6">සුන්දරත්වයේ රහස</h1>
-                    <p class="text-xl text-white/90 mb-8">ස්වභාවික ආයුර්වේද සූත්‍රයෙන් නිපදවන ලද</p>
-                    <button class="bg-pink-600 text-white px-8 py-3 rounded-full hover:bg-pink-700 transition">
-                        නිෂ්පාදන බලන්න
-                    </button>
-                </div>
+    <!-- Hero Section -->
+    <section id="hero" class="h-screen relative overflow-hidden">
+        <canvas id="heroCanvas" class="absolute inset-0"></canvas>
+        <div class="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent"></div>
+        <div class="relative container mx-auto px-6 h-full flex items-center">
+            <div class="max-w-2xl">
+                <h1 class="text-6xl font-serif text-white leading-tight mb-6">
+                    සුන්දරත්වයේ <br>
+                    <span class="text-gold">නව පරිච්ඡේදය</span>
+                </h1>
+                <p class="text-xl text-white/90 mb-8 leading-relaxed">
+                    ස්වභාවික ආයුර්වේද සාරයෙන් නිපදවන ලද අපගේ නිෂ්පාදන මගින් ඔබේ චර්මයේ ස්වභාවික දීප්තිය ලබා ගන්න
+                </p>
+                <button class="btn-primary-large">
+                    අපගේ නිෂ්පාදන බලන්න
+                </button>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="products" class="py-20 bg-white">
-            <div class="container mx-auto px-6">
-                <h2 class="text-4xl font-bold text-center mb-16">අපගේ නිෂ්පාදන</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-                    <!-- Product cards will be dynamically added here -->
-                </div>
-            </div>
-        </section>
-
-        <!-- More sections... -->
-    </main>
-
-    <footer class="bg-gray-900 text-white py-12">
+    <!-- Featured Products -->
+    <section id="products" class="py-24 bg-soft-white">
         <div class="container mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <!-- Footer content -->
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-serif mb-4">ප්‍රමුඛ නිෂ්පාදන</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">පරම්පරාගත ආයුර්වේද වටිනාකම් සමග නවීන විද්‍යාත්මක තාක්ෂණය එක් කරමින් නිපදවන ලද අපගේ නිෂ්පාදන</p>
             </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12" id="productsGrid"></div>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section id="story" class="py-24 bg-dark">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="text-4xl font-serif text-white mb-6">අපගේ කතාව</h2>
+                    <p class="text-gray-300 leading-relaxed mb-8">
+                        වසර 25කට වැඩි පරම්පරාගත ආයුර්වේද දැනුම සහ නවීන තාක්ෂණය එක්කර නිපදවන ලද Sosa Lanka නිෂ්පාදන, ශ්‍රී ලංකාවේ සෑම කාන්තාවකගේම සුන්දරත්වය වැඩි දියුණු කිරීමේ අරමුණින් නිර්මාණය කර ඇත.
+                    </p>
+                    <button class="btn-secondary">තව දැනගන්න</button>
+                </div>
+                <div class="relative">
+                    <div class="aspect-square bg-gold/20 rounded-full flex items-center justify-center">
+                        <!-- Animated SVG here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ingredients Section -->
+    <section id="ingredients" class="py-24 bg-soft-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-serif mb-4">ප්‍රධාන අමුද්‍රව්‍ය</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">සියලුම අමුද්‍රව්‍ය 100% ස්වභාවික සහ ආයුර්වේද සම්ප්‍රදායට අනුව තෝරාගෙන ඇත</p>
+            </div>
+            <div id="ingredientsGrid" class="grid grid-cols-2 md:grid-cols-4 gap-8"></div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-gradient-to-r from-dark to-darker">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+                <div>
+                    <h2 class="text-4xl font-serif text-white mb-6">සම්බන්ධ වන්න</h2>
+                    <p class="text-gray-300 mb-8">ඔබේ ප්‍රශ්න සහ යෝජනා සදහා අප සැමවිටම සූදානම්</p>
+                    <form id="contactForm" class="space-y-6">
+                        <!-- Contact form fields -->
+                    </form>
+                </div>
+                <div class="relative">
+                    <!-- Contact decoration -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-darker text-white py-16">
+        <div class="container mx-auto px-6">
+            <!-- Footer content -->
         </div>
     </footer>
 
-    <script src="animation.js"></script>
+    <script src="animations.js"></script>
     <script src="main.js"></script>
 </body>
 </html>
